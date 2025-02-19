@@ -1,3 +1,9 @@
+/*
+* Name: Nate O'Brien & Shrihan Agarwal
+* Program Name: 2D Array Game
+* Date: 2/19/25
+* Extra: 
+*/
 #include <iostream>
 
 using namespace std;

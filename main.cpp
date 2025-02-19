@@ -25,14 +25,14 @@ int main(){
             gameBoard[i][j] = "#"; 
             cout<< gameBoard[i][j]; 
         }
-        cout<<endl; 
+        cout<<endl;
     }
-
-    vector<int> randPos = getRandomPos(64);
-
-    for (int item : randPos){
-        cout << "\n" << item << endl;
-    }
+  
+  vector<int> randPos = getRandomPos(64);
+  for (int item : randPos){
+        cout << "\n" << item << endl;  
+  }
+   
 
     cout << "\n "<< "\033[0m" << endl;
     return 0;
@@ -41,12 +41,11 @@ int main(){
 void clear(){
     #if defined _WIN32
         system("CLS");
-    #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
-        system("clear");
-    #elif defined (__APPLE__)
+    #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__) || defined (__posix__)
         system("clear");
     #endif
 }
+
 
 vector<int> getRandomPos(int size){
     vector<int> arr (2);

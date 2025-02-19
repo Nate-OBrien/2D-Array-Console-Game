@@ -12,10 +12,16 @@ void clear();
 
 int main(){
     cout << "\033[31m" << endl;
-    string gameBoard[16] = {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",};
-    for (string piece : gameBoard){
-        cout << piece;
+    string gameBoard[32][64];
+
+    for(int i = 0; i < 32; i++){
+        for(int j = 0; j < 64; j++){
+            gameBoard[i][j] = "#"; 
+            cout<< gameBoard[i][j]; 
+        }
+        cout<<endl; 
     }
+   
 
     cout << "\033[0m" << endl;
     return 0;
@@ -24,9 +30,7 @@ int main(){
 void clear(){
     #if defined _WIN32
         system("CLS");
-    #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__)
-        system("clear");
-    #elif defined (__APPLE__)
+    #elif defined (__LINUX__) || defined(__gnu_linux__) || defined(__linux__) || defined (__APPLE__) || defined (__posix__)
         system("clear");
     #endif
 }

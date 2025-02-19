@@ -5,8 +5,13 @@ using namespace std;
 void clear();
 
 int main(){
+    cout << "\033[31m" << endl;
+    string gameBoard[16] = {"#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#", "#",};
+    for (string piece : gameBoard){
+        cout << piece;
+    }
 
-
+    cout << "\033[0m" << endl;
     return 0;
 }
 

@@ -19,7 +19,7 @@ vector<int> getRandomPos(int sizeX, int sizeY);
 int main(){
     srand(time(NULL));
 
-    cout << "\033[0m" << endl;
+    std::cout << "\033[0m" << endl;
     string gameBoard[32][64];
 
     vector<int> playerPos = getRandomPos(64, 32);
@@ -27,46 +27,46 @@ int main(){
     vector<vector <int>> obstaclePos;
 
     for (int i = 0; i < 256; i++){
-        vector <int> x = getRandomPos(64, 32);
+        vector <int> x;
         do {
             x = getRandomPos(64, 32);
         } while (count(obstaclePos.begin(), obstaclePos.end(), x) != 0 && x == playerPos);
     
         obstaclePos.push_back(x);
-        cout << obstaclePos.at(i).at(0) << " " << obstaclePos.at(i).at(1) << endl;
     }
   
-    vector<int> minePos = getRandomPos(64, 32); 
+     vector<int> minePos; 
+    //do{
+    //    vector<int> minePos = getRandomPos(64, 32);
+    //}while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos /*Add target pos error check*/));
 
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){
-            cout << "\033[31m";
+            std::cout << "\033[31m";
             if (count(obstaclePos.begin(), obstaclePos.end(), vector <int> {j, i}) != 0 ){
-                cout << "\033[36m";
+                std::cout << "\033[36m";
             }
             if (i == playerPos.at(1) && j == playerPos.at(0)){
-                cout << "\033[32m";
+                std::cout << "\033[32m";
                 gameBoard[i][j] = "0";
-                
-            } else {
-                gameBoard[i][j] = "#"; 
+            
             }
             if(i == minePos.at(1) && j == minePos.at(0)){
-                cout << "\033[42m";
+                std::cout << "\033[42m";
                 gameBoard[i][j] = "M";
             } else {
                 gameBoard[i][j] = "#"; 
             }
             
-            cout<< gameBoard[i][j] << "\033[0m"; 
+            std::cout<< gameBoard[i][j] << "\033[0m"; 
 
         }
-        cout<<endl;
+        std::cout<<endl;
     }
   
    
 
-    cout << "\n "<< "\033[0m" << endl;
+    std::cout << "\n "<< "\033[0m" << endl;
     return 0;
 }
 

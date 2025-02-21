@@ -12,7 +12,7 @@
 using namespace std;
 
 void clear();
-vector<int> getRandomPos(int size);
+vector<int> getRandomPos(int sizeX, int sizeY);
 
 int main(){
     srand(time(NULL));
@@ -20,18 +20,25 @@ int main(){
     cout << "\033[31m" << endl;
     string gameBoard[32][64];
 
+    vector<int> playerPos = getRandomPos(64, 32);
+    cout << playerPos.at(0) << " " << playerPos.at(1) << endl;
+
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){
-            gameBoard[i][j] = "#"; 
+            cout << "\033[31m";
+            if (i == playerPos.at(1) && j == playerPos.at(0)){
+                cout << "\033[32m";
+                gameBoard[i][j] = "0";
+                
+            } else {
+                gameBoard[i][j] = "#"; 
+            }
+            
             cout<< gameBoard[i][j]; 
         }
         cout<<endl;
     }
   
-  vector<int> randPos = getRandomPos(64);
-  for (int item : randPos){
-        cout << "\n" << item << endl;  
-  }
    
 
     cout << "\n "<< "\033[0m" << endl;
@@ -47,11 +54,9 @@ void clear(){
 }
 
 
-vector<int> getRandomPos(int size){
+vector<int> getRandomPos(int sizeX, int sizeY){
     vector<int> arr (2);
-    for (int i = 0; i < 2; i++){
-        arr.at(i) = rand() % size;
-    }
-
+    arr.at(0) = rand() % sizeX;
+    arr.at(1) = rand() % sizeY;
     return arr;
 }

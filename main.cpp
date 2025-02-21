@@ -21,7 +21,7 @@ int main(){
     string gameBoard[32][64];
 
     vector<int> playerPos = getRandomPos(64, 32);
-    cout << playerPos.at(0) << " " << playerPos.at(1) << endl;
+    vector<int> minePos = getRandomPos(64, 32); 
 
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){
@@ -33,8 +33,14 @@ int main(){
             } else {
                 gameBoard[i][j] = "#"; 
             }
+            if(i == minePos.at(1) && j == minePos.at(0)){
+                cout << "\033[42m";
+                gameBoard[i][j] = "M";
+            } else {
+                gameBoard[i][j] = "#"; 
+            }
             
-            cout<< gameBoard[i][j]; 
+            cout<< gameBoard[i][j] << "\033[0m"; 
         }
         cout<<endl;
     }

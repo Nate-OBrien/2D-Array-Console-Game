@@ -36,9 +36,9 @@ int main(){
     }
   
      vector<int> minePos; 
-    //do{
-    //    vector<int> minePos = getRandomPos(64, 32);
-    //}while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos /*Add target pos error check*/));
+    do{
+       vector<int> minePos = getRandomPos(64, 32);
+    }while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos /*Add target pos error check*/));
 
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){

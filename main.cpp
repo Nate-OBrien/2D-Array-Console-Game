@@ -36,15 +36,16 @@ int main(){
         obstaclePos.push_back(x);
     }
   
-     vector<int> minePos; 
-    do{
-       vector<int> minePos = getRandomPos(64, 32);
-    }while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos /*Add target pos error check*/));
-
     vector <int> targetPos;
     do{
         targetPos = getRandomPos(64, 32);
-    } while(count(obstaclePos.begin(), obstaclePos.end(), targetPos) != 0 && (targetPos == playerPos || targetPos == minePos));
+    } while(count(obstaclePos.begin(), obstaclePos.end(), targetPos) != 0 && targetPos == playerPos);
+    
+    vector<int> minePos; 
+    
+    do{
+        minePos = getRandomPos(64, 32);
+     }while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos || minePos == targetPos));
 
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){
@@ -57,8 +58,6 @@ int main(){
             }
             if (i == playerPos.at(1) && j == playerPos.at(0)){
                 std::cout << "\033[32m";
-                gameBoard[i][j] = "0";
-
             }
             if(i == minePos.at(1) && j == minePos.at(0)){
                 std::cout << "\033[42m";

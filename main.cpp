@@ -27,16 +27,20 @@ int main(){
     vector<vector <int>> obstaclePos;
 
     for (int i = 0; i < 256; i++){
-        vector <int> x = getRandomPos(64, 32);
+        vector<int> x;
         do {
             x = getRandomPos(64, 32);
         } while (count(obstaclePos.begin(), obstaclePos.end(), x) != 0 && x == playerPos);
     
         obstaclePos.push_back(x);
-        cout << obstaclePos.at(i).at(0) << " " << obstaclePos.at(i).at(1) << endl;
     }
   
     vector<int> minePos = getRandomPos(64, 32); 
+
+    vector <int> targetPos;
+    do{
+        targetPos = getRandomPos(64, 32);
+    } while(count(obstaclePos.begin(), obstaclePos.end(), targetPos) != 0 && (targetPos == playerPos || targetPos == minePos));
 
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){
@@ -44,12 +48,12 @@ int main(){
             if (count(obstaclePos.begin(), obstaclePos.end(), vector <int> {j, i}) != 0 ){
                 cout << "\033[36m";
             }
+            if (i == targetPos.at(1) && j == targetPos.at(0)){
+                cout << "\033[33m";
+            }
             if (i == playerPos.at(1) && j == playerPos.at(0)){
                 cout << "\033[32m";
                 gameBoard[i][j] = "0";
-                
-            } else {
-                gameBoard[i][j] = "#"; 
             }
             if(i == minePos.at(1) && j == minePos.at(0)){
                 cout << "\033[42m";

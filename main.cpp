@@ -20,7 +20,8 @@ vector<int> getRandomPos(int sizeX, int sizeY);
 void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos);
 bool checkMove(vector<vector<int>>, vector<int> playerPos, int changePos[2]);
 
-vector<int> minePos;
+vector<int> minePos = getRandomPos(64, 32);
+
 int main(){
     srand(time(NULL));
     instructions();
@@ -77,12 +78,19 @@ int main(){
         if (checkMove(obstaclePos, playerPos, changePos)){
             playerPos.at(0) += changePos[0];
             playerPos.at(1) += changePos[1];
+        } else {
+            changePos[0] = 0;
+            changePos[1] = 0;
         }
-        
+        if(playerPos.at(0) == minePos.at(0) && playerPos.at(1) == minePos.at(1)){
+            cout << "You lose!" << endl;
+            exit(0);
+        } else if (playerPos.at(0) == targetPos.at(0) && playerPos.at(1) == targetPos.at(1)){
+            cout << "You win!" << endl;
+            exit(0);
+        }    
     }
-    if(playerPos.at(0) == minePos.at(0) && playerPos.at(1) == minePos.at(1)){
-        exit(0);
-    }
+    
     return 0;
 }
 
@@ -113,10 +121,6 @@ void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int>
             }
             if (i == playerPos.at(1) && j == playerPos.at(0)){
                 std::cout << "\033[32m";
-            }
-            if(i == minePos.at(1) && j == minePos.at(0)){
-                std::cout << "\033[42m";
-                board[i][j] = "M";
             } else {
                 board[i][j] = "#"; 
             }
@@ -130,14 +134,15 @@ void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int>
 }
 
 void instructions(){
-    cout<<"W, A, S, D to move\nQ to quit\nBlue #'s are walls, yellow # is the objective\nGet to the objective without getting hit by the hidden min to win"<<endl; 
-    string understand; 
+    cout<<"W, A, S, D to move\nQ to quit\n\033[36mBlue #'s \033[0m are walls, \033[42myellow # \033[0mis the objective\n\033[32mGreen # \033[0mis the player\nGet to the objective without getting hit by the hidden mine to win"<<endl; 
+    char understand; 
     cin >> understand;
+    clear();
 }
 
 bool checkMove(vector<vector<int>> obstaclePos, vector<int> playerPos, int changePos[2]){
     vector<int> check = {playerPos.at(0) + changePos[0], playerPos.at(1) + changePos[1]};
-    if (count(obstaclePos.begin(), obstaclePos.end(), check) != 0 || playerPos.at(0) == 0 || playerPos.at(1) == 0 || playerPos.at(0) == 31 || playerPos.at(1) == 63){
+    if (count(obstaclePos.begin(), obstaclePos.end(), check) != 0 || check.at(0) < 0 || check.at(1) < 0 || check.at(1) >= 32 || check.at(0) >= 64){
         return false;
     }
     return true;

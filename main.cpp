@@ -12,7 +12,6 @@
 #include <algorithm>
 #include <conio.h>
 
-
 using namespace std;
 
 void clear();
@@ -21,9 +20,10 @@ void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<in
 
 int main(){
     srand(time(NULL));
-
+    
     std::cout << "\033[0m" << endl;
     string gameBoard[32][64];
+    char supportedKeys[5] = {'w', 'a', 's', 'd', 'q'};
 
     vector<int> playerPos = getRandomPos(64, 32);
 
@@ -49,9 +49,32 @@ int main(){
 
     while (true){
         printBoard(gameBoard, obstaclePos, targetPos, playerPos, minePos);
-
         char input = getch();
         clear();
+        int n = sizeof(supportedKeys)/sizeof(supportedKeys[0]);
+        auto it = find(supportedKeys, supportedKeys + n, input);
+        if (it == supportedKeys + n) continue;
+        int changePos[2] {0, 0};
+        switch(input){
+            case 'w':
+                changePos[1] = -1;
+                break;
+            case 'a':
+                changePos[0] = -1;
+                break;
+            case 's':
+                changePos[1] = 1;
+                break;
+            case 'd':
+                changePos[0] = 1;
+                break;
+            case 'q':
+                cout << "Exiting Program" << endl;
+                exit(0);
+        }
+
+        playerPos.at(0) += changePos[0];
+        playerPos.at(1) += changePos[1];
     }
     
     return 0;

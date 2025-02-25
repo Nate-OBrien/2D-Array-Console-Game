@@ -17,8 +17,9 @@ using namespace std;
 void clear();
 void instructions();
 vector<int> getRandomPos(int sizeX, int sizeY);
-void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos, vector<int> minePos);
+void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos);
 
+vector<int> minePos;
 int main(){
     srand(time(NULL));
     instructions();
@@ -43,13 +44,11 @@ int main(){
         targetPos = getRandomPos(64, 32);
     } while(count(obstaclePos.begin(), obstaclePos.end(), targetPos) != 0 && targetPos == playerPos);
     
-    vector<int> minePos; 
-    do{
-        minePos = getRandomPos(64, 32);
-     }while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos || minePos == targetPos));
+    
 
     while (true){
-        printBoard(gameBoard, obstaclePos, targetPos, playerPos, minePos);
+        
+        printBoard(gameBoard, obstaclePos, targetPos, playerPos);
         char input = getch();
         clear();
         int n = sizeof(supportedKeys)/sizeof(supportedKeys[0]);
@@ -77,7 +76,9 @@ int main(){
         playerPos.at(0) += changePos[0];
         playerPos.at(1) += changePos[1];
     }
-    
+    if(playerPos.at(0) == minePos.at(0) && playerPos.at(1) == minePos.at(1)){
+        exit(0);
+    }
     return 0;
 }
 
@@ -92,7 +93,11 @@ vector<int> getRandomPos(int sizeX, int sizeY){
     return arr;
 }
 
-void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos, vector<int> minePos){
+void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos){
+    vector<int> minePos; 
+    do{
+        minePos = getRandomPos(64, 32);
+     }while(count(obstaclePos.begin(), obstaclePos.end(), minePos) != 0 && (minePos == playerPos || minePos == targetPos));
     for(int i = 0; i < 32; i++){
         for(int j = 0; j < 64; j++){
             std::cout << "\033[31m";
@@ -117,6 +122,7 @@ void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int>
         }
         std::cout<<endl;
     }
+    
 }
 
 void instructions(){

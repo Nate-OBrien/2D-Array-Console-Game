@@ -15,12 +15,13 @@
 using namespace std;
 
 void clear();
+void instructions();
 vector<int> getRandomPos(int sizeX, int sizeY);
 void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos, vector<int> minePos);
 
 int main(){
     srand(time(NULL));
-    
+    instructions();
     std::cout << "\033[0m" << endl;
     string gameBoard[32][64];
     char supportedKeys[5] = {'w', 'a', 's', 'd', 'q'};
@@ -116,4 +117,10 @@ void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int>
         }
         std::cout<<endl;
     }
+}
+
+void instructions(){
+    cout<<"W, A, S, D to move\nQ to quit\nBlue #'s are walls, yellow # is the objective\nGet to the objective without getting hit by the hidden min to win"<<endl; 
+    string understand; 
+    cin >> understand;
 }

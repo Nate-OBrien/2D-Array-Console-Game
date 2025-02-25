@@ -20,6 +20,7 @@ vector<int> getRandomPos(int sizeX, int sizeY);
 void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos);
 bool checkMove(vector<vector<int>>, vector<int> playerPos, int changePos[2]);
 
+vector<int> minePos;
 int main(){
     srand(time(NULL));
     instructions();
@@ -48,6 +49,7 @@ int main(){
 
     while (true){
         cout << endl;
+
         printBoard(gameBoard, obstaclePos, targetPos, playerPos);
         char input = getch();
         clear();
@@ -78,7 +80,9 @@ int main(){
         }
         
     }
-    
+    if(playerPos.at(0) == minePos.at(0) && playerPos.at(1) == minePos.at(1)){
+        exit(0);
+    }
     return 0;
 }
 
@@ -122,6 +126,7 @@ void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int>
         }
         std::cout<<endl;
     }
+    
 }
 
 void instructions(){

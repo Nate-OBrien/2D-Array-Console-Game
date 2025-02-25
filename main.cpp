@@ -18,6 +18,7 @@ void clear();
 void instructions();
 vector<int> getRandomPos(int sizeX, int sizeY);
 void printBoard(string board[32][64], vector<vector<int>> obstaclePos, vector<int> targetPos, vector<int> playerPos);
+bool checkMove(vector<vector<int>>, vector<int> playerPos, int changePos[2]);
 
 vector<int> minePos;
 int main(){
@@ -47,7 +48,8 @@ int main(){
     
 
     while (true){
-        
+        cout << endl;
+
         printBoard(gameBoard, obstaclePos, targetPos, playerPos);
         char input = getch();
         clear();
@@ -72,9 +74,11 @@ int main(){
                 cout << "Exiting Program" << endl;
                 exit(0);
         }
-
-        playerPos.at(0) += changePos[0];
-        playerPos.at(1) += changePos[1];
+        if (checkMove(obstaclePos, playerPos, changePos)){
+            playerPos.at(0) += changePos[0];
+            playerPos.at(1) += changePos[1];
+        }
+        
     }
     if(playerPos.at(0) == minePos.at(0) && playerPos.at(1) == minePos.at(1)){
         exit(0);
@@ -129,4 +133,12 @@ void instructions(){
     cout<<"W, A, S, D to move\nQ to quit\nBlue #'s are walls, yellow # is the objective\nGet to the objective without getting hit by the hidden min to win"<<endl; 
     string understand; 
     cin >> understand;
+}
+
+bool checkMove(vector<vector<int>> obstaclePos, vector<int> playerPos, int changePos[2]){
+    vector<int> check = {playerPos.at(0) + changePos[0], playerPos.at(1) + changePos[1]};
+    if (count(obstaclePos.begin(), obstaclePos.end(), check) != 0 || playerPos.at(0) == 0 || playerPos.at(1) == 0 || playerPos.at(0) == 31 || playerPos.at(1) == 63){
+        return false;
+    }
+    return true;
 }

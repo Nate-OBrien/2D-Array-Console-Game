@@ -144,7 +144,7 @@ void printBoard(string board[][64], vector<vector<int>> obstaclePos, vector<int>
 
 //prints instructions, and gets input to start
 void instructions(){
-    cout<<"W, A, S, D to move\nQ to quit\n\033[36mBlue #'s \033[0m are walls, \033[42myellow # \033[0mis the objective\n\033[32mGreen # \033[0mis the player\nGet to the objective without getting hit by the hidden mine to win"<<endl; 
+    cout<<"W, A, S, D to move\nQ to quit\n\033[36mBlue #'s \033[0m are walls, \033[42myellow # \033[0mis the objective\n\033[32mGreen # \033[0mis the player\nGet to the objective without getting hit by the hidden mine to win\n\nPRESS A/D ONCE THE GAME LOADS"<<endl; 
     char understand; 
     cin >> understand;
     clear();
